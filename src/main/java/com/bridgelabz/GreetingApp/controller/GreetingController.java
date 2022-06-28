@@ -12,17 +12,23 @@ public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-@Autowired
-   private IGreetingService greeting;
+    @Autowired
+    IGreetingService greetingService;
 
     @GetMapping("/greeting")
-    public Greeting greeting(@RequestParam(value="name", defaultValue ="world") String name) {
-       return new Greeting((int) counter.incrementAndGet(),String.format(template,name));
+    public Greeting greeting(@RequestParam(value = "name", defaultValue = "world") String name) {
+        return new Greeting((int) counter.incrementAndGet(), String.format(template, name));
     }
 
-    @RequestMapping(value=("/hello"), method = RequestMethod.GET)
-    public String hello(){
-        String message= greeting.getMessage();
+    @RequestMapping(value = ("/hello"), method = RequestMethod.GET)
+    public String hello() {
+        String message = greetingService.getMessage();
         return message;
+    }
+
+    @PostMapping("/messages")
+    public String get(@RequestBody Greeting greeting) {
+        String getGreeting=greetingService.getGreeting(greeting);
+        return getGreeting;
     }
 }
