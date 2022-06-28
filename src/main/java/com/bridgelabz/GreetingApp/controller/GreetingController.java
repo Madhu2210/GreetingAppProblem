@@ -17,7 +17,7 @@ public class GreetingController {
 
     @GetMapping("/greeting")
     public Greeting greeting(@RequestParam(value = "name", defaultValue = "world") String name) {
-        return new Greeting((int) counter.incrementAndGet(), String.format(template, name));
+        return new Greeting(counter.incrementAndGet(), String.format(template, name));
     }
 
     @RequestMapping(value = ("/hello"), method = RequestMethod.GET)
@@ -30,5 +30,12 @@ public class GreetingController {
     public String get(@RequestBody Greeting greeting) {
         String getGreeting=greetingService.getGreeting(greeting);
         return getGreeting;
+    }
+
+    @GetMapping("/getMessage/{getId}")
+    public Greeting getMessage(@PathVariable long getId)
+    {
+        Greeting greeting=greetingService.greetingMessage(getId);
+        return greeting;
     }
 }

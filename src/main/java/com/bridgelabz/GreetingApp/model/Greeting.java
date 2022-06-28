@@ -8,10 +8,12 @@ import javax.persistence.Id;
 public class Greeting {
     @Id
     @GeneratedValue
-    private int id;
+    private long id;
     private String message;
 
-    public Greeting(int id, String message) {
+    public Greeting(){
+    }
+    public Greeting(long id, String message) {
         this.id = id;
         this.message = message;
     }
@@ -21,7 +23,7 @@ public class Greeting {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
 
         this.id = id;
     }
@@ -36,11 +38,8 @@ public class Greeting {
         this.message = message;
     }
 
-    public Greeting() {
-    }
-
     @Override
     public String toString() {
-        return "Greeting{" + "id" + id + ", messages='" + message + '\'' + '}';
+        return "Greeting{" + "id" + id + ", message='" + message + '\'' + '}';
     }
 }

@@ -1,10 +1,17 @@
 package com.bridgelabz.GreetingApp.service;
 
 import com.bridgelabz.GreetingApp.model.Greeting;
+import com.bridgelabz.GreetingApp.repository.IGreetingRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 public class GreetingService implements IGreetingService {
+
+    @Autowired
+    IGreetingRepository repository;
 
     @Override
     public String getMessage(){
@@ -14,6 +21,14 @@ public class GreetingService implements IGreetingService {
 
     @Override
     public String getGreeting(Greeting greeting) {
+        repository.save(greeting);
         return greeting.toString();
+    }
+
+    @Override
+    public Greeting greetingMessage(long getId){
+        Optional<Greeting> greeting = repository.findById(getId);
+        return greeting.get();
+
     }
 }
